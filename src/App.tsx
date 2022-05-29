@@ -9,6 +9,7 @@ import FavoritesPage from 'pages/favoritesPage/FavoritesPage'
 function App() {
   const dispatch = useAppDispatch()
 
+  
   useEffect(() => {
     dispatch(getCatsData())
   }, [dispatch])
