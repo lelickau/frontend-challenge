@@ -79,6 +79,26 @@ export const catsSlice = createSlice({
         setPage: (state) => {
             state.page = state.page + 1
         },
+        addFavorite: (state, action) => {
+            state.favorites.push({...action.payload, favorite: true})
+            state.cats = state.cats.map(cat => {
+                if(cat.id === action.payload.id) {
+                    return {...cat, favorite: true}
+                } else {
+                    return cat
+                }
+            })
+        },
+        deleteFavorite: (state, action) => {
+            state.favorites = state.favorites.filter(fav => fav.id !== action.payload)
+            state.cats = state.cats.map(cat => {
+                if(cat.id === action.payload) {
+                    return {...cat, favorite: false}
+                } else {
+                    return cat
+                }
+            })
+        },
         setFetching: (state, action) => {
             state.fetching = action.payload
         },
@@ -91,5 +111,5 @@ export const catsSlice = createSlice({
     }
 })
 
-export const {setPaginationCount, setFetching, setPage} = catsSlice.actions
+export const {setPaginationCount, addFavorite, deleteFavorite, setFetching, setPage} = catsSlice.actions
 export default catsSlice.reducer
